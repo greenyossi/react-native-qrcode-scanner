@@ -62,39 +62,13 @@ export default class QRCodeScanner extends Component {
     showMarker: false,
     cameraType: 'back',
     notAuthorizedView: (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 16,
-          }}
-        >
-          Camera not authorized
-        </Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ textAlign: 'center', fontSize: 16 }}>Camera not authorized</Text>
       </View>
     ),
     pendingAuthorizationView: (
-      <View
-        style={{
-          flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}
-      >
-        <Text
-          style={{
-            textAlign: 'center',
-            fontSize: 16,
-          }}
-        >
-          ...
-        </Text>
+      <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
+        <Text style={{ textAlign: 'center', fontSize: 16 }}>. . .</Text>
       </View>
     ),
     permissionDialogTitle: 'Info',
@@ -127,16 +101,9 @@ export default class QRCodeScanner extends Component {
           isAuthorizationChecked: true,
         });
       });
-    } else if (
-      Platform.OS === 'android' &&
-      this.props.checkAndroid6Permissions
-    ) {
-      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA, {
-        title: this.props.permissionDialogTitle,
-        message: this.props.permissionDialogMessage,
-      }).then(granted => {
+    } else if (Platform.OS === 'android' && this.props.checkAndroid6Permissions) {
+      PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA).then(granted => {
         const isAuthorized = granted === PermissionsAndroid.RESULTS.GRANTED;
-
         this.setState({ isAuthorized, isAuthorizationChecked: true });
       });
     } else {
